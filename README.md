@@ -1,19 +1,30 @@
-## 基于PyTorch框架实现图卷积神经网络
-项目源代码参考本人[Github](https://github.com/dreamhomes/PyTorch-GNN).
-### 依赖库
-- DGL 0.1.3
-- PyTorch 0.4.1
-- networkX 2.2
+## PyTorch GNNs
+> Node-level and graph-level classification.
 
-### 过程
+![](https://cdn.jsdelivr.net/gh/dreamhomes/blog-image-bed@master/top/dreamhomes/butterflyblog/imgs/20210802190310.svg)
 
-#### 1. 利用DGL构建图
+### Models
+Related theory reference 👉🏻 [https://dreamhomes.top/](https://dreamhomes.top/)
 
-#### 2. 构建图卷积神经网络
+- [x] GCN
+- [x] GAT
+- [ ] GraphSAGE
+### Dependencies
+```shell
+numpy==1.20.3
+scipy==1.4.1
+matplotlib==3.1.3
+networkx==2.5.1
+torch==1.6.0
+dgl==0.5.1
 
-#### 3. 训练过程
+```
+Using following command:
+```bash
+$ pip install -r requirements.txt
+```
 
-#### 4. 训练过程可视化
+### Train and visualization
+**Karate club dataset**
+
 ![result](outputs/result.gif)
-
-项目参考：[教程](https://docs.dgl.ai/tutorials/basics/1_first.html)
