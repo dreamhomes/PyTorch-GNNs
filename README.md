@@ -8,7 +8,7 @@ Related theory reference 👉🏻 [https://dreamhomes.top/](https://dreamhomes.t
 
 - [x] GCN
 - [x] GAT
-- [ ] GraphSAGE
+- [x] GraphSAGE
 ### Dependencies
 ```shell
 numpy==1.20.3

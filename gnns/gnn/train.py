@@ -18,7 +18,8 @@ from model import GCN
 from build_graph import build_karate_club_graph
 
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
 
 
 net = GCN(34, 5, 2)
@@ -44,12 +45,12 @@ for epoch in range(20):
     loss.backward()
     optimizer.step()
 
-    print('Epoch %d | Loss: %.4f' % (epoch, loss.item()))
+    print("Epoch %d | Loss: %.4f" % (epoch, loss.item()))
 
 
 def draw(i):
-    cls1color = '#00FFFF'
-    cls2color = '#FF00FF'
+    cls1color = "#00FFFF"
+    cls2color = "#FF00FF"
     pos = {}
     colors = []
     for v in range(34):
@@ -58,8 +59,10 @@ def draw(i):
         colors.append(cls1color if cls else cls2color)
     ax.cla()
     # ax.axis('off')
-    ax.set_title('Epoch: %d' % i)
-    nx.draw_networkx(nx_G.to_undirected(), pos, node_color=colors, with_labels=True, node_size=300, ax=ax)
+    ax.set_title("Epoch: %d" % i)
+    nx.draw_networkx(
+        nx_G.to_undirected(), pos, node_color=colors, with_labels=True, node_size=300, ax=ax
+    )
 
 
 nx_G = G.to_networkx().to_undirected()
@@ -70,4 +73,3 @@ ax = fig.subplots()
 
 ani = animation.FuncAnimation(fig, draw, frames=len(all_logits), interval=200)
 plt.show()
-

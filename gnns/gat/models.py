@@ -10,11 +10,16 @@ class GAT(nn.Module):
         super(GAT, self).__init__()
         self.dropout = dropout
 
-        self.attentions = [GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True) for _ in range(nheads)]
+        self.attentions = [
+            GraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True)
+            for _ in range(nheads)
+        ]
         for i, attention in enumerate(self.attentions):
-            self.add_module('attention_{}'.format(i), attention)
+            self.add_module("attention_{}".format(i), attention)
 
-        self.out_att = GraphAttentionLayer(nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False)
+        self.out_att = GraphAttentionLayer(
+            nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False
+        )
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
@@ -30,19 +35,16 @@ class SpGAT(nn.Module):
         super(SpGAT, self).__init__()
         self.dropout = dropout
 
-        self.attentions = [SpGraphAttentionLayer(nfeat, 
-                                                 nhid, 
-                                                 dropout=dropout, 
-                                                 alpha=alpha, 
-                                                 concat=True) for _ in range(nheads)]
+        self.attentions = [
+            SpGraphAttentionLayer(nfeat, nhid, dropout=dropout, alpha=alpha, concat=True)
+            for _ in range(nheads)
+        ]
         for i, attention in enumerate(self.attentions):
-            self.add_module('attention_{}'.format(i), attention)
+            self.add_module("attention_{}".format(i), attention)
 
-        self.out_att = SpGraphAttentionLayer(nhid * nheads, 
-                                             nclass, 
-                                             dropout=dropout, 
-                                             alpha=alpha, 
-                                             concat=False)
+        self.out_att = SpGraphAttentionLayer(
+            nhid * nheads, nclass, dropout=dropout, alpha=alpha, concat=False
+        )
 
     def forward(self, x, adj):
         x = F.dropout(x, self.dropout, training=self.training)
@@ -52,7 +54,7 @@ class SpGAT(nn.Module):
         return F.log_softmax(x, dim=1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     gat = GAT(10, 5, 2, 0.2, 1, 2)
     x = torch.ones((3, 10))
     adj = torch.ones((3, 3))

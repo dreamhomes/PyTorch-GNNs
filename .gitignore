@@ -3,8 +3,8 @@ data/
 # output/
 # docs/
 
-# Pycharm
 .idea/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

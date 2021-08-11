@@ -17,7 +17,7 @@ def gcn_message(edges):
     :param edges:
     :return:
     """
-    return {'msg': edges.src['h']}
+    return {"msg": edges.src["h"]}
 
 
 def gcn_reduce(nodes):
@@ -26,7 +26,7 @@ def gcn_reduce(nodes):
     :param nodes:
     :return:
     """
-    return {'h': torch.sum(nodes.mailbox['msg'], dim=1)}
+    return {"h": torch.sum(nodes.mailbox["msg"], dim=1)}
 
 
 class GCNLayer(nn.Module):
@@ -41,13 +41,13 @@ class GCNLayer(nn.Module):
     def forward(self, g, inputs):
         # g is the graph and the inputs is the input node features
         # first set the node features
-        g.ndata['h'] = inputs
+        g.ndata["h"] = inputs
         # trigger message passing on all edges
         g.send(g.edges(), gcn_message)
         # trigger aggregation at all nodes
         g.recv(g.nodes(), gcn_reduce)
         # get the result node features
-        h = g.ndata.pop('h')
+        h = g.ndata.pop("h")
         # perform linear transformation
         return self.linear(h)
 
@@ -56,6 +56,7 @@ class GCN(nn.Module):
     """
     Define a 2-layer GCN model.
     """
+
     def __init__(self, in_feats, hidden_size, num_classes):
         super(GCN, self).__init__()
         self.gcn1 = GCNLayer(in_feats, hidden_size)
@@ -68,5 +69,5 @@ class GCN(nn.Module):
         return h
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     net = GCN(34, 5, 2)
